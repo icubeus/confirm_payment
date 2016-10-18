@@ -1,0 +1,95 @@
+<?php if ( $orderId = $this->getRequest()->getParam('orderid') ) : ?>
+<?php $order = $this->getOrderById($orderId); ?>
+<?php endif; ?>
+<form name="form" id="confirmpayemnt-form" action="<?php echo $this->getSaveAction(); ?>" method="post" enctype="multipart/form-data">
+<div class="wrapper">
+    <div class="box">
+
+        <div class="page-title">
+            <h1><?php echo $this->__('Payment Confirmation') ?></h1>
+        </div>
+
+        <div class="box-content">
+	        <div class="fieldset">
+	        	<ul class="form-list">
+		        	<li>
+		        		<label for="order_id" class="required"><?php echo $this->__('Order Number') ?><em>*</em></label>
+		        		<div class="input-box">
+			        		<input type="text" name="order_id" id="order_id" class="required-entry input-text" value="<?php echo ($order)? $order->getIncrementId() : '' ?>"/>
+			        	</div>
+			        </li>
+		        	<li>
+		        		<label for="name" class="required"><?php echo $this->__('Name') ?><em>*</em></label>
+		        		<div class="input-box">
+			        		<input type="text" name="name" id="name" class="required-entry input-text" value="<?php echo ($order)? $order->getCustomerName() : '' ?>" />
+			        	</div>
+			        </li>
+			        <li>
+		        		<label for="email"><?php echo $this->__('Email') ?></label>
+		        		<div class="input-box">
+			        		<input type="text" name="email" id="email" class="input-text validate-email" />
+			        	</div>
+			        </li>
+				    <li>
+				        <label for="bank_to" class="required"><?php echo $this->__('Bank To') ?><em>*</em></label>
+		        		<div class="input-box">
+						        <?php echo $this->getToBankHtmlOptions(); ?>
+				        </div>
+				    </li>
+				    <li>
+				        <label for="transfer_date" class="required"><?php echo $this->__('Transfer Date') ?><em>*</em></label>
+		        		<div class="input-box">
+				        	<input type="text" name="transfer_date" id="datepicker" class="validate-date input-text">
+				        </div>
+				    </li>
+				    <li>
+				        <label for="amount" class="required"><?php echo $this->__('Amount') ?><em>*</em></label>
+		        		<div class="input-box">
+				        	<input type="text" name="amount" id="amount" class="input-text required-entry validate-digits" />
+				        </div>
+				    </li>
+			        <li>
+				        <label for="bank_from" class="required"><?php echo $this->__('Bank From') ?><em>*</em></label>
+		        		<div class="input-box">
+				        	<input type="text" name="bank_from" id="bank_from" class="required-entry input-text" />
+				        </div>
+				    </li>
+			        <li>
+				        <label for="holder_name"><?php echo $this->__('Bank Holder Name') ?></label>
+		        		<div class="input-box">
+				        	<input type="text" name="holder_name" id="holder_name" class="input-text" />
+				        </div>
+				    </li>
+				    <li>
+				        <label for="filename"><?php echo $this->__('Attach File') ?></label>
+		        		<div class="input-box">
+				        	<?php echo $this->__('Please select the File:') ?><input type="file" name="filename" id="filename" />
+				        </div>
+				    </li>
+			        <li class="hidden">
+				        <label for="account_number"><?php echo $this->__('Account Number') ?></label>
+		        		<div class="input-box">
+				        	<input type="text" name="account_number" id="account_number" class="input-text" />
+				        </div>
+				    </li>
+		        </ul>
+	        </div>
+	    </div>
+
+	    <div class="buttons-set">
+		    <button type="submit" id="save_confirm_payment" title="<?php echo $this->__('Confirm Payment') ?>" class="button submit"><span><span><?php echo $this->__('Confirm Payment') ?></span></span></button>
+		    <p class="required mr10"><?php echo $this->__('Required Fields') ?> *</p>
+	   	</div>
+    </div>
+</div>     
+</form>         
+<script type="text/javascript">
+	//< ![CDATA[
+        var confirmpaymentForm = new VarienForm('confirmpayemnt-form');
+    //]]>
+	
+	jQuery(function() {
+			jQuery( "#datepicker" ).datepicker();
+	})
+;
+</script>
